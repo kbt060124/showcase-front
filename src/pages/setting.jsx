@@ -8,7 +8,7 @@ const setting = () => {
 
     // Check if the user object exists
     if (!user) {
-        return <div>Loading...</div>; // Or any other appropriate loading indicator or redirect logic
+        return <div>Loading...</div> // Or any other appropriate loading indicator or redirect logic
     }
 
     return (
