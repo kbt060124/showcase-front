@@ -1,12 +1,6 @@
-import { useAuth } from '@/hooks/auth'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 const Footer = ({ user }) => {
-    const router = useRouter()
-
-    const { logout } = useAuth()
-
     return (
         <>
             <Link

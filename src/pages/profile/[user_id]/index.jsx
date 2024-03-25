@@ -15,25 +15,25 @@ const Profile = () => {
 
     useEffect(() => {
         if (router.isReady && user_id) {
-        const fetchProfiles = async () => {
-            try {
-                const response = await laravelAxios.get(
-                    'api/account/' + user_id,
-                )
+            const fetchProfiles = async () => {
+                try {
+                    const response = await laravelAxios.get(
+                        'api/account/' + user_id,
+                    )
 
-                setProfiles(response.data[0])
-                videoRef.current.src =
-                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/storage/warehouse/` +
-                    user_id +
-                    '/threed/' +
-                    response.data[0].account?.mainstage_image
-                videoRef.current?.play()
-            } catch (error) {
-                console.log(error)
+                    setProfiles(response.data[0])
+                    videoRef.current.src =
+                        `${process.env.NEXT_PUBLIC_BACKEND_URL}/storage/warehouse/` +
+                        user_id +
+                        '/threed/' +
+                        response.data[0].account?.mainstage_image
+                    videoRef.current?.play()
+                } catch (error) {
+                    console.log(error)
+                }
             }
+            fetchProfiles()
         }
-        fetchProfiles()
-    }
     }, [router.isReady, user_id])
 
     return (
@@ -50,7 +50,8 @@ const Profile = () => {
                     controls
                     loop
                     playsInline
-                    muted></video>
+                    muted
+                />
             </div>
             <div className="px-5 mt-5">
                 <div className="flex w-full items-center">
@@ -86,15 +87,15 @@ const Profile = () => {
                             </div>
                         </div>
                         <div className="ml-2 mt-2  w-11/12 bg-gray-500 text-white rounded-2xl">
-                        {user?.id == user_id ? (
-                            <Link className="" href={`/setting`}>
-                                Setting
-                            </Link>
-                        ) : (
-                            <Link className="" href="#">
-                                Visit Main Stage
-                            </Link>
-                        )}
+                            {user?.id == user_id ? (
+                                <Link className="" href={`/setting`}>
+                                    Setting
+                                </Link>
+                            ) : (
+                                <Link className="" href="#">
+                                    Visit Main Stage
+                                </Link>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -124,7 +125,6 @@ const Profile = () => {
                             display: 'grid',
                             gap: '10px',
                             gridTemplateColumns: '1fr 1fr 1fr',
-
                         }}>
                         {profiles.posts?.map((post, index) => (
                             <div className="w-full" key={index}>

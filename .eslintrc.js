@@ -52,5 +52,9 @@ module.exports = {
             { endOfLine: 'auto' },
             { usePrettierrc: true },
         ],
+        'react/no-unknown-property': [
+            'error',
+            { ignore: ['object', 'position', 'scale', 'castShadow', 'intensity'] },
+        ],
     },
 }

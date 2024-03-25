@@ -1,7 +1,7 @@
 import { useAuth } from '@/hooks/auth'
 import Footer from './Footer'
 
-const AppLayout = ({ header, children }) => {
+const AppLayout = ({ children }) => {
     const { user } = useAuth({ middleware: 'auth' })
 
     return (

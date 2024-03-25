@@ -24,7 +24,6 @@ const Home = () => {
         fetchPosts()
     }, [])
 
-
     // Modalを開く関数
     const handleOpen = postId => setOpen(postId)
 
@@ -60,38 +59,40 @@ const Home = () => {
         }
     }
 
-    const handleLike = async (postId) => {
-        const isLiked = likedPosts.includes(postId);
+    const handleLike = async postId => {
+        const isLiked = likedPosts.includes(postId)
         try {
-            let response;
+            let response
             if (isLiked) {
                 // いいねを取り消す
-                response = await laravelAxios.delete(`/api/posts/${postId}/like`);
-                setLikedPosts(likedPosts.filter(id => id !== postId)); // いいね状態を更新
+                response = await laravelAxios.delete(
+                    `/api/posts/${postId}/like`,
+                )
+                setLikedPosts(likedPosts.filter(id => id !== postId)) // いいね状態を更新
             } else {
                 // いいねを追加する
-                response = await laravelAxios.post(`/api/posts/${postId}/like`);
-                setLikedPosts([...likedPosts, postId]); // いいね状態を更新
+                response = await laravelAxios.post(`/api/posts/${postId}/like`)
+                setLikedPosts([...likedPosts, postId]) // いいね状態を更新
             }
-            console.log(response.data);
+            console.log(response.data)
             // 必要に応じて他のUIの状態を更新
-            let updatedPosts;
+            let updatedPosts
             if (!isLiked) {
                 // いいねを追加する処理
                 updatedPosts = posts.map(post =>
-                    post.id === postId ? { ...post, liked: [{}] } : post
-                );
+                    post.id === postId ? { ...post, liked: [{}] } : post,
+                )
             } else {
                 // いいねを取り消す処理
                 updatedPosts = posts.map(post =>
-                    post.id === postId ? { ...post, liked: [] } : post
-                );
+                    post.id === postId ? { ...post, liked: [] } : post,
+                )
             }
-            setPosts(updatedPosts); // 更新された投稿の配列で状態を更新
+            setPosts(updatedPosts) // 更新された投稿の配列で状態を更新
         } catch (error) {
-            console.error('Like action failed:', error);
+            console.error('Like action failed:', error)
         }
-    };
+    }
 
     return (
         <AppLayout>
@@ -156,14 +157,18 @@ const Home = () => {
                                                 className="h-6"
                                                 src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/storage/icon/LikeGray.png`}
                                                 alt="ハート"
-                                                onClick={() => handleLike(post.id)}
+                                                onClick={() =>
+                                                    handleLike(post.id)
+                                                }
                                             />
                                         ) : (
                                             <img
                                                 className="h-6"
                                                 src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/storage/icon/LikePink.png`}
                                                 alt="ハート"
-                                                onClick={() => handleLike(post.id)}
+                                                onClick={() =>
+                                                    handleLike(post.id)
+                                                }
                                             />
                                         )}
 

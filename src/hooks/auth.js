@@ -7,7 +7,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     const router = useRouter()
 
     const { data: user, error, mutate } = useSWR('/api/user', () =>
-    laravelAxios
+        laravelAxios
             .get('/api/user')
             .then(res => res.data)
             .catch(error => {
@@ -15,7 +15,6 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
                 router.push('/verify-email')
             }),
-    
     )
 
     const csrf = () => laravelAxios.get('/sanctum/csrf-cookie')
@@ -28,23 +27,21 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
         laravelAxios
             .post('api/register', props)
             .then(res => {
-                if (res.data){
-                    localStorage.setItem('token', res.data.access_token);
+                if (res.data) {
+                    localStorage.setItem('token', res.data.access_token)
                     // if (shouldRemember){
                     //     secureLocalStorage.setItem('user_data', res.data);
                     // }else{
                     //     encryptSessionData('user_data', res.data);
                     // }
-                mutate('/api/user')
+                    mutate('/api/user')
                 }
             })
-            .catch(error =>
-            {
+            .catch(error => {
                 if (error.response.status !== 422) throw error
 
                 setErrors(error.response.data.errors)
-            }
-            )
+            })
     }
 
     const login = async ({ setErrors, setStatus, ...props }) => {
@@ -55,12 +52,12 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
         laravelAxios
             .post('api/login', props)
-            .then((response) => {
+            .then(response => {
                 // トークンをローカルストレージに保存
-                localStorage.setItem('token', response.data.access_token);
+                localStorage.setItem('token', response.data.access_token)
                 // ユーザー情報をSWRのキャッシュに設定
-                mutate('/api/user');
-                console.log(response, "response")
+                mutate('/api/user')
+                console.log(response, 'response')
             })
             .catch(error => {
                 if (error.response.status !== 422) throw error
@@ -111,12 +108,15 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
     const logout = async () => {
         if (!error) {
-            laravelAxios.post('/api/logout').then(() => {
-                localStorage.removeItem('token'); // トークンをローカルストレージから削除
-                mutate() // Ensure the user state is reset
-            }).catch(error => {
-                console.error('Logout failed:', error);
-            });
+            laravelAxios
+                .post('/api/logout')
+                .then(() => {
+                    localStorage.removeItem('token') // トークンをローカルストレージから削除
+                    mutate() // Ensure the user state is reset
+                })
+                .catch(error => {
+                    console.error('Logout failed:', error)
+                })
         }
 
         window.location.pathname = '/login'

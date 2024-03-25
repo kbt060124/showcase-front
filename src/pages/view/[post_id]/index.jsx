@@ -46,11 +46,7 @@ const View = () => {
             `${process.env.NEXT_PUBLIC_BACKEND_URL}/storage/warehouse/${post.user_id}/threed/${post.warehouse.threed_data}`,
         )
         return (
-            <primitive
-                object={scene}
-                position={[0, 0, 0]}
-                scale={[1, 1, 1]}
-            />
+            <primitive object={scene} position={[0, 0, 0]} scale={[1, 1, 1]} />
         )
     }
 
@@ -115,7 +111,7 @@ const View = () => {
                                     <img
                                         className="w-10"
                                         style={{ borderRadius: '50%' }}
-                                        src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/storage/profile/${post.user.account.icon}`}                                        
+                                        src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/storage/profile/${post.user.account.icon}`}
                                         alt="アイコン"
                                     />
                                     <div className="ml-2 font-bold">
@@ -136,7 +132,7 @@ const View = () => {
                     </div>
                 </div>
             ) : (
-                <div></div>
+                <div />
             )}
         </div>
     )
